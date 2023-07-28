@@ -6,6 +6,7 @@ provider:
 
 plugins:
     - ./vendor/bref/bref
+    - ./vendor/bref/extra-php-extensions
 
 functions:
     api:
@@ -15,6 +16,11 @@ functions:
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         events:
             -   httpApi: '*'
+    console:
+        handler: bin/console
+        runtime: php-81
+        layers:
+            - ${bref-extra:mongodb-php-81}
 
 # Exclude files from deployment
 package:

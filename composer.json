@@ -5,6 +5,15 @@
         "async-aws/simple-s3": "^1.1",
         "async-aws/secrets-manager": "^1.0",
         "async-aws/lambda": "^1.9",
-        "mongodb/mongodb": "^1.16"
+        "bref/extra-php-extensions": "^1.2",
+        "async-aws/dynamo-db": "^1.4"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.9"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }

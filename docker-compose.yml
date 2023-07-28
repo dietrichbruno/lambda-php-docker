@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   php:
-    container_name: php
+    container_name: php-lambda
     build:
       context: ./
       args:
@@ -14,5 +14,15 @@ services:
         AWS_SECRET: ${AWS_SECRET}
     volumes:
       - ./:/usr/src/app
+      - .:/var/task
     ports:
       - "8080:8080"
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "9090:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal

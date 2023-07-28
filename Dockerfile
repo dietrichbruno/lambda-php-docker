@@ -15,13 +15,13 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions json
 
 # Install system dependencies and the PHP MongoDB extension
-RUN pecl install mongodb \
-    && docker-php-ext-enable mongodb
+#RUN pecl install mongodb \
+#    && docker-php-ext-enable mongodb
 
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 
-RUN apt-get update && apt-get install -y git zip
+RUN apt-get update && apt-get install -y git zip openssl
 
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 RUN npm i -g serverless

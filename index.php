@@ -1,50 +1,25 @@
 <?php
 
-use AsyncAws\SimpleS3\SimpleS3Client;
-use Symfony\Component\HttpClient\HttpClient;
-use Bref\Context\Context;
+use AsyncAws\Lambda\LambdaClient;
 
 require __DIR__ . '/vendor/autoload.php';
 
-return function($event, Context $context) {
-    try {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->safeLoad();
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-        $client = HttpClient::create();
+$credentials = [
+    'accessKeyId' => $_ENV['AWS_KEY'],
+    'accessKeySecret' => $_ENV['AWS_SECRET'],
+    'region' => $_ENV['AWS_REGION'],
+];
 
-        if (getEnv('APP_ENV') != 'local') {
-            $response = $client->request(
-                'GET',
-                'http://localhost:2773/secretsmanager/get?secretId=lambda-secret',
-                [
-                    'headers' => [
-                        'X-Aws-Parameters-Secrets-Token' => getEnv('AWS_SESSION_TOKEN')
-                    ]
-                ]
-            );
+$lambda = new LambdaClient($credentials);
 
-            $secrets = json_decode($response->toArray()['SecretString']);
-            $_ENV['AWS_KEY'] = $secrets->access_key;
-            $_ENV['AWS_SECRET'] = $secrets->access_secret;
-        }
+$result = $lambda->invoke([
+    'FunctionName' => 'app-dev-api',
+    'Payload' => json_encode(['cep' => '93310201']),
+]);
 
-        $s3 = new SimpleS3Client([
-            'region' => 'us-east-1',
-            'accessKeyId' => $_ENV['AWS_KEY'],
-            'accessKeySecret' => $_ENV['AWS_SECRET']
-        ]);
-
-        $s3->upload('lambda-test-bruno', 'photos/cat_2.txt', 'I like this cat');
-
-        $url = $s3->getUrl('my-image-bucket', 'photos/cat_2.jpg');
-
-        echo $url;
-
-        return $url;
-    } catch (\Exception $exception) {
-        return ['statusCode' => 404, 'body' => $exception->getMessage()];
-    }
-}
+return $result;
 
 ?>
