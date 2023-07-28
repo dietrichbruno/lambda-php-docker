@@ -1,25 +1,19 @@
 <?php
 
-use AsyncAws\Lambda\LambdaClient;
+use Bref\Context\Context;
 
+require_once('GetFromDb.php');
 require __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+return function($event, Context $context) {
+    if ($_ENV['APP_ENV'] == 'local') {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
+    }
 
-$credentials = [
-    'accessKeyId' => $_ENV['AWS_KEY'],
-    'accessKeySecret' => $_ENV['AWS_SECRET'],
-    'region' => $_ENV['AWS_REGION'],
-];
+    $getFromDb = new GetFromDb();
 
-$lambda = new LambdaClient($credentials);
-
-$result = $lambda->invoke([
-    'FunctionName' => 'app-dev-api',
-    'Payload' => json_encode(['cep' => '93310201']),
-]);
-
-return $result;
+    return $getFromDb->handle(["cep" => "93520370"], $context);
+}
 
 ?>
