@@ -5,8 +5,8 @@ ARG USER
 ARG PW
 ARG UID
 ARG GID
-ARG AWS_KEY
-ARG AWS_SECRET
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
 
 RUN useradd -m ${USER} --uid=${UID} && echo "${USER}:${PW}" | \
       chpasswd
@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y git zip openssl
 
 RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 RUN npm i -g serverless
-RUN serverless config credentials --provider aws --key ${AWS_KEY} --secret ${AWS_SECRET}
+RUN serverless config credentials --provider aws --key ${AWS_ACCESS_KEY_ID} --secret ${AWS_SECRET_ACCESS_KEY}
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 

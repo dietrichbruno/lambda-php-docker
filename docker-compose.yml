@@ -10,8 +10,8 @@ services:
         GID: ${GID:-1000}
         PW: ${PW:-docker}
         USER: ${USER:-docker}
-        AWS_KEY: ${AWS_KEY}
-        AWS_SECRET: ${AWS_SECRET}
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
     volumes:
       - ./:/usr/src/app
       - .:/var/task

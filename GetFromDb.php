@@ -16,8 +16,10 @@ class GetFromDb implements Handler
     public function handle($event, Context $context)
     {
         try {
-            $dotenv = Dotenv::createImmutable(__DIR__);
-            $dotenv->load();
+            if ($_ENV['APP_ENV'] == 'local') {
+                $dotenv = Dotenv::createImmutable(__DIR__);
+                $dotenv->load();
+            }
 
             $dynamoDb = new DynamoDbClient(DBHandler::setDB());
 
