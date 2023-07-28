@@ -2,10 +2,8 @@
     "require": {
         "vlucas/phpdotenv": "^5.5",
         "bref/bref": "^2.0",
-        "async-aws/simple-s3": "^1.1",
         "async-aws/secrets-manager": "^1.0",
         "async-aws/lambda": "^1.9",
-        "bref/extra-php-extensions": "^1.2",
         "async-aws/dynamo-db": "^1.4"
     },
     "require-dev": {

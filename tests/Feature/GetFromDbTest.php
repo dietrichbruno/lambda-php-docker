@@ -4,7 +4,6 @@ require_once('GetFromDb.php');
 
 use Bref\Context\Context;
 
-
 test('getFromDb', function () {
     $getFromDb = new GetFromDb();
 

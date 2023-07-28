@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-source $(dirname "$0")/colors.sh
 
-ASK=$BLUE_COLOR"Please enter your choice: "$RESET_COLOR
+ASK="Please enter your choice: "
 EXIT="exit"
 PS3=$ASK
 
@@ -14,11 +13,11 @@ do
 
     for item in "${options[@]}"; do
         if [[ $item == $opt ]]; then
-            echo $YELLOW_COLOR"Entering $opt..."$RESET_COLOR
+            echo "Entering $opt..."
             docker exec -it -u www-data $opt bash
             break 2;
         else
-            echo $YELLOW_COLOR"Entering $opt..."$RESET_COLOR
+            echo "Entering $opt..."
             docker exec -it -u root $opt bash
             break  2
         fi
