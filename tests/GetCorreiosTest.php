@@ -1,7 +1,8 @@
 <?php
 
-require_once('GetCorreios.php');
+require_once('app/GetCorreios.php');
 
+use app\GetCorreios;
 use Bref\Context\Context;
 use PHPUnit\Framework\TestCase;
 

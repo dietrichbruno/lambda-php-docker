@@ -1,15 +1,16 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+namespace app;
+require __DIR__ . '/../vendor/autoload.php';
 require_once('DBHandler.php');
 
 use AsyncAws\DynamoDb\DynamoDbClient;
 use AsyncAws\DynamoDb\Input\PutItemInput;
 use Bref\Context\Context;
 use Bref\Event\Handler;
+use Carbon\Carbon;
 use Dotenv\Dotenv;
 use Symfony\Component\HttpClient\HttpClient;
-use Carbon\Carbon;
 
 class GetCorreios implements Handler
 {
@@ -35,7 +36,7 @@ class GetCorreios implements Handler
 
     private function loadEnv(): void
     {
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv::createImmutable(__DIR__. '/../');
         $dotenv->load();
     }
 
@@ -49,7 +50,7 @@ class GetCorreios implements Handler
             $result->getItem()['expires_at']->getS())
             ->subMinutes(15)
             ->lt(Carbon::now()->toString()
-        );
+            );
     }
 
     private function checkCorreiosSession()

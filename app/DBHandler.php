@@ -1,5 +1,7 @@
 <?php
 
+namespace app;
+
 use AsyncAws\Core\Configuration;
 use AsyncAws\DynamoDb\Input\GetItemInput;
 use AsyncAws\DynamoDb\ValueObject\AttributeValue;
@@ -57,7 +59,7 @@ class DBHandler
 
     private static function loadEnv(): void
     {
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
     }
 }

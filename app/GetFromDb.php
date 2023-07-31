@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+namespace app;
+require __DIR__ . '/../vendor/autoload.php';
 require_once('DBHandler.php');
 
 use AsyncAws\DynamoDb\DynamoDbClient;
@@ -66,7 +67,7 @@ class GetFromDb implements Handler
 
     private function loadEnv(): void
     {
-        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
     }
 }

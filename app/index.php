@@ -1,5 +1,6 @@
 <?php
 
+use app\GetCorreios;
 use Bref\Context\Context;
 
 require_once('GetCorreios.php');
