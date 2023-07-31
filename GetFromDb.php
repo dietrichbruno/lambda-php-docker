@@ -16,12 +16,9 @@ class GetFromDb implements Handler
     public function handle($event, Context $context)
     {
         try {
-            if ($_ENV['APP_ENV'] == 'local') {
-                $dotenv = Dotenv::createImmutable(__DIR__);
-                $dotenv->load();
-            }
+            $this->loadEnv();
 
-            $dynamoDb = new DynamoDbClient(DBHandler::setDB());
+            $dynamoDb = new DynamoDbClient(DBHandler::getDBConfig());
 
             $dynamoDb->putItem(new PutItemInput($this->createCepEntity($event['cep'])));
 
@@ -65,6 +62,12 @@ class GetFromDb implements Handler
             "street" => $response->getItem()['street']->getS(),
             "created_at" => $response->getItem()['created_at']->getS()
         ];
+    }
+
+    private function loadEnv(): void
+    {
+        $dotenv = Dotenv::createImmutable(__DIR__);
+        $dotenv->load();
     }
 }
 

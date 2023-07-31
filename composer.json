@@ -4,14 +4,10 @@
         "bref/bref": "^2.0",
         "async-aws/secrets-manager": "^1.0",
         "async-aws/lambda": "^1.9",
-        "async-aws/dynamo-db": "^1.4"
+        "async-aws/dynamo-db": "^1.4",
+        "nesbot/carbon": "^2.68"
     },
     "require-dev": {
-        "pestphp/pest": "^2.9"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
+        "phpunit/phpunit": "^10.2"
     }
 }

@@ -2,13 +2,13 @@
 
 use Bref\Context\Context;
 
-require_once('GetFromDb.php');
+require_once('GetCorreios.php');
 require __DIR__ . '/vendor/autoload.php';
 
 return function($event, Context $context) {
-    $getFromDb = new GetFromDb();
+    $getCorreios = new GetCorreios();
 
-    return $getFromDb->handle(["cep" => "93520370"], $context);
+    return $getCorreios->handle(["cep" => "93520370"], $context);
 }
 
 ?>
